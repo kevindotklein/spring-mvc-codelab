@@ -2,6 +2,8 @@ package com.kevindotklein.springmvc.controllers;
 
 import com.kevindotklein.springmvc.models.Teacher;
 import com.kevindotklein.springmvc.models.enums.TeacherStatus;
+import com.kevindotklein.springmvc.services.TeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,15 +17,12 @@ import java.util.List;
 @RequestMapping("/teachers")
 public class TeacherController {
 
+    @Autowired
+    private TeacherService teacherService;
+
     @GetMapping
     public ModelAndView getAll(){
-        Teacher t = new Teacher();
-        t.setId(1L);
-        t.setName("Test");
-        t.setSalary(BigDecimal.valueOf(8000.0));
-        t.setStatus(TeacherStatus.ACTIVE);
-        List<Teacher> teacherList = new ArrayList<>();
-        teacherList.add(t);
+        List<Teacher> teacherList = this.teacherService.findAll();
         ModelAndView mv = new ModelAndView("teachers/index");
         mv.addObject("teachers", teacherList);
         return mv;
