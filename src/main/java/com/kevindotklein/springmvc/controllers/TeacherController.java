@@ -4,12 +4,15 @@ import com.kevindotklein.springmvc.dto.TeacherRequestDTO;
 import com.kevindotklein.springmvc.models.Teacher;
 import com.kevindotklein.springmvc.models.enums.TeacherStatus;
 import com.kevindotklein.springmvc.services.TeacherService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -36,7 +39,11 @@ public class TeacherController {
     }
 
     @PostMapping
-    public String postNewTeacher(TeacherRequestDTO data){
+    public String postNewTeacher(@Valid TeacherRequestDTO data, BindingResult result, RedirectAttributes redirect){
+        if(result.hasErrors()){
+            redirect.addFlashAttribute("error", "Preencha todos os campos");
+            return "redirect:/teachers/new";
+        }
         Teacher teacher = new Teacher(data);
         this.teacherService.save(teacher);
         return "redirect:/teachers";
