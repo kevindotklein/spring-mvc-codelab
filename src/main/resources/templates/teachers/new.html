@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <title>Novo Professor</title>
@@ -18,25 +18,23 @@
   <div class="container">
     <div class="row">
 
-      <div class="alert alert-danger w-100" th:if="${error}" th:text="${error}"></div>
-
-      <form action="/teachers" method="POST" class="w-100">
+      <form th:object="${teacherRequestDTO}" th:action="@{/teachers}" method="POST" class="w-100">
 
         <div class="mb-3 ">
           <label class="form-label">Nome</label>
-          <input type="text" class="form-control" name="name">
-          <div></div>
+          <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{name}">
+          <div class="invalid-feedback" th:errors="*{name}"></div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Salário</label>
-          <input type="text" class="form-control" name="salary">
-          <div></div>
+          <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{salary}">
+          <div class="invalid-feedback" th:errors="*{salary}"></div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Status</label>
-          <select name="status" class="form-select w-100 input-lg">
+          <select th:field="*{status}" name="status" class="form-select w-100 input-lg">
 
             <option th:each="status : ${teacherStatus}"
             th:value="${status}" th:text="${status}"></option>

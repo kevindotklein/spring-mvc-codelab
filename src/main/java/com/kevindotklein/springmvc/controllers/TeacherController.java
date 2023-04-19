@@ -7,12 +7,14 @@ import com.kevindotklein.springmvc.services.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -32,20 +34,21 @@ public class TeacherController {
     }
 
     @GetMapping("/new")
-    public ModelAndView getNewTeacher(){
+    public ModelAndView getNewTeacher(TeacherRequestDTO data){
         ModelAndView mv = new ModelAndView("teachers/new");
         mv.addObject("teacherStatus", TeacherStatus.values());
         return mv;
     }
 
     @PostMapping
-    public String postNewTeacher(@Valid TeacherRequestDTO data, BindingResult result, RedirectAttributes redirect){
+    public ModelAndView postNewTeacher(@Valid TeacherRequestDTO data, BindingResult result){
         if(result.hasErrors()){
-            redirect.addFlashAttribute("error", "Preencha todos os campos");
-            return "redirect:/teachers/new";
+            ModelAndView mv = new ModelAndView("/teachers/new");
+            mv.addObject("teacherStatus", TeacherStatus.values());
+            return mv;
         }
         Teacher teacher = new Teacher(data);
         this.teacherService.save(teacher);
-        return "redirect:/teachers";
+        return new ModelAndView("redirect:/teachers");
     }
 }
