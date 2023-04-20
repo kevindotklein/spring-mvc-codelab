@@ -1,5 +1,6 @@
 package com.kevindotklein.springmvc.services;
 
+import com.kevindotklein.springmvc.exceptions.teacher.TeacherDoesNotExistException;
 import com.kevindotklein.springmvc.models.Teacher;
 import com.kevindotklein.springmvc.repositories.TeacherRepositoy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,9 @@ public class TeacherService {
 
     public void save(Teacher teacher){
         this.teacherRepositoy.save(teacher);
+    }
+
+    public Teacher findById(Long id){
+        return this.teacherRepositoy.findById(id).orElseThrow(() -> new TeacherDoesNotExistException(id));
     }
 }

@@ -29,7 +29,7 @@
             <td class="col-4" th:text="${teacher.getName()}">Nome do Professor</td>
             <td class="col-2" th:text="${teacher.getSalary()}">Salário</td>
             <td class="col-2" th:text="${teacher.getStatus().toString()}">STATUS</td>
-            <td class="col-1"><a href="#">Detalhes</a></td>
+            <td class="col-1"><a th:href="@{/teachers/{teacherId}(teacherId = ${teacher.getId()})}">Detalhes</a></td>
             <td class="col-1"><a href="#">Editar</a></td>
             <td class="col-1"><a href="#">Deletar</a></td>
           </tr>

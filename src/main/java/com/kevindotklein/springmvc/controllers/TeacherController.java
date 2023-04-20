@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -50,5 +47,13 @@ public class TeacherController {
         Teacher teacher = new Teacher(data);
         this.teacherService.save(teacher);
         return new ModelAndView("redirect:/teachers");
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView getTeacherDetails(@PathVariable Long id){
+        Teacher teacher = this.teacherService.findById(id);
+        ModelAndView mv = new ModelAndView("teachers/details");
+        mv.addObject("teacher", teacher);
+        return mv;
     }
 }
