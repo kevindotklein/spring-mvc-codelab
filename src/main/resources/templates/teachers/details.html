@@ -18,7 +18,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <a href="#">Editar</a><a href="/teachers" class="ml-1">Voltar</a>
+                <a th:href="@{/teachers/{teacherId}/edit(teacherId = ${teacher.getId()})}">Editar</a><a href="/teachers" class="ml-1">Voltar</a>
             </div>
         </div>
     </div>

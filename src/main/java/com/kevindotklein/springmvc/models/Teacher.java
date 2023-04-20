@@ -32,4 +32,14 @@ public class Teacher {
         this.salary = data.salary();
         this.status = data.status();
     }
+
+    public TeacherRequestDTO toTeacherRequestDTO(Teacher teacher){
+        return new TeacherRequestDTO(teacher.getName(), teacher.getSalary(), teacher.getStatus());
+    }
+
+    public void updateAllAttributes(String name, BigDecimal salary, TeacherStatus status){
+        this.name = name;
+        this.salary = salary;
+        this.status = status;
+    }
 }

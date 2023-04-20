@@ -7,8 +7,6 @@ import com.kevindotklein.springmvc.services.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,7 +44,7 @@ public class TeacherController {
         }
         Teacher teacher = new Teacher(data);
         this.teacherService.save(teacher);
-        return new ModelAndView("redirect:/teachers");
+        return new ModelAndView("redirect:/teachers/"+teacher.getId());
     }
 
     @GetMapping("/{id}")
@@ -56,4 +54,29 @@ public class TeacherController {
         mv.addObject("teacher", teacher);
         return mv;
     }
+
+    @GetMapping("/{id}/edit")
+    public ModelAndView getEditTeacher(@PathVariable Long id, TeacherRequestDTO data){
+        Teacher teacher = this.teacherService.findById(id);
+        ModelAndView mv = new ModelAndView("teachers/edit");
+        mv.addObject("teacherStatus", TeacherStatus.values());
+        mv.addObject("teacher", teacher);
+        return mv;
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView updateTeacher(@PathVariable Long id, @Valid TeacherRequestDTO data, BindingResult result){
+        Teacher teacher = this.teacherService.findById(id);
+        if(result.hasErrors()){
+            ModelAndView mv = new ModelAndView("teachers/edit");
+            mv.addObject("teacherStatus", TeacherStatus.values());
+            mv.addObject("teacher", teacher);
+            return mv;
+        }
+        teacher.updateAllAttributes(data.name(), data.salary(), data.status());
+        this.teacherService.save(teacher);
+        ModelAndView mv = new ModelAndView("redirect:/teachers/"+id);
+        return mv;
+    }
+
 }
