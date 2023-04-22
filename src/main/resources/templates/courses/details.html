@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <a href="#">Editar</a><a href="/courses" class="ml-1">Voltar</a>
+        <a th:href="@{/courses/{courseId}/edit(courseId = ${course.getId()})}">Editar</a><a href="/courses" class="ml-1">Voltar</a>
       </div>
     </div>
   </div>

@@ -31,4 +31,10 @@ public class Course {
         this.description = data.description();
         this.type = data.type();
     }
+
+    public void updateAllAttributes(String name, String description, CourseType type){
+        this.name = name;
+        this.description = description;
+        this.type = type;
+    }
 }

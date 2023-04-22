@@ -1,0 +1,14 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+
+<head th:replace="~{fragment :: head('Editar Curso')}"></head>
+
+<body>
+
+<header th:replace="~{fragment :: header('Editar Curso: '+${course.getName()}, '/courses')}"></header>
+
+
+<div th:replace="~{courses/fragment :: form(courseRequestDTO, '/courses/'+${course.getId()})}"></div>
+
+</body>
+</html>

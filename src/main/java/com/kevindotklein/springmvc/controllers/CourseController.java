@@ -61,4 +61,44 @@ public class CourseController {
         mv.addObject("course", course);
         return mv;
     }
+
+    @GetMapping("/{id}/edit")
+    public ModelAndView getCourseEdit(@PathVariable Long id, CourseRequestDTO data){
+        Course course = this.courseService.findById(id);
+        ModelAndView mv = new ModelAndView("courses/edit");
+        mv.addObject("courseType", CourseType.values());
+        mv.addObject("course", course);
+        return mv;
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView updateCourse(@PathVariable Long id, @Valid CourseRequestDTO data, BindingResult result){
+        Course course = this.courseService.findById(id);
+        if(result.hasErrors()){
+            ModelAndView mv = new ModelAndView("courses/edit");
+            mv.addObject("courseType", CourseType.values());
+            mv.addObject("course", course);
+            return mv;
+        }
+
+        course.updateAllAttributes(data.name(), data.description(), data.type());
+        this.courseService.save(course);
+        ModelAndView mv;
+        mv = this.courseSuccessMessage("redirect:/courses/"+id, "Curso #"+id+" atualizado com sucesso");
+        return mv;
+    }
+
+    public ModelAndView courseErrorMessage(String route, String message){
+        ModelAndView mv = new ModelAndView(route);
+        mv.addObject("message", message);
+        mv.addObject("error", true);
+        return mv;
+    }
+
+    public ModelAndView courseSuccessMessage(String route, String message){
+        ModelAndView mv = new ModelAndView(route);
+        mv.addObject("message", message);
+        mv.addObject("error", false);
+        return mv;
+    }
 }
