@@ -29,4 +29,8 @@ public class TeacherService {
     public void deleteById(Long id){
         this.teacherRepositoy.deleteById(id);
     }
+
+    public boolean existsById(Long id){
+        return this.teacherRepositoy.existsById(id);
+    }
 }

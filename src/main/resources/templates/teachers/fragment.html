@@ -32,3 +32,11 @@
       </form>
     </div>
 </div>
+
+<div class="container" th:fragment="feedback-message">
+  <div class="col-12">
+    <span th:styleappend="${(param.error == null || param.message == null) ? 'display: none;' : ''}"
+          th:classappend="${(param.error != null && param.error) ? 'error-message' : 'success-message'}"
+          th:text="${param.message != null ? param.message : ''}"></span>
+  </div>
+</div>

@@ -7,7 +7,9 @@
 
 <header th:replace="~{fragment :: header('Lista de Professores', '/teachers')}"></header>
 
-<div class="container">
+<div th:replace="~{teachers/fragment :: feedback-message}"></div>
+
+<div class="container mt-4">
 
   <div class="row">
     <div class="col-12">

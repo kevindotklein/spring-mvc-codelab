@@ -78,17 +78,35 @@ public class TeacherController {
         }
         teacher.updateAllAttributes(data.name(), data.salary(), data.status());
         this.teacherService.save(teacher);
-        ModelAndView mv = new ModelAndView("redirect:/teachers/"+id);
+        ModelAndView mv;
+        mv = this.teacherSuccessMessage("redirect:/teachers/"+id, "Professor #"+id+" atualizado com sucesso");
         return mv;
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteTeacher(@PathVariable Long id){
-        try {
+    public ModelAndView deleteTeacher(@PathVariable Long id){
+        ModelAndView mv;
+        if(this.teacherService.existsById(id)){
             this.teacherService.deleteById(id);
-            return "redirect:/teachers";
-        }catch (EmptyResultDataAccessException e){
-            return "redirect:/teachers";
+            mv = this.teacherSuccessMessage("redirect:/teachers", "Professor #"+id+" deletado com sucesso");
+        }else{
+            mv = this.teacherErrorMessage("redirect:/teachers", "Professor #"+id+" não existe");
         }
+
+        return mv;
+    }
+
+    public ModelAndView teacherErrorMessage(String route, String message){
+        ModelAndView mv = new ModelAndView(route);
+        mv.addObject("message", message);
+        mv.addObject("error", true);
+        return mv;
+    }
+
+    public ModelAndView teacherSuccessMessage(String route, String message){
+        ModelAndView mv = new ModelAndView(route);
+        mv.addObject("message", message);
+        mv.addObject("error", false);
+        return mv;
     }
 }
