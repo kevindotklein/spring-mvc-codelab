@@ -1,4 +1,4 @@
-package com.kevindotklein.springmvc.dto;
+package com.kevindotklein.springmvc.dto.teacher;
 
 import com.kevindotklein.springmvc.models.enums.TeacherStatus;
 import jakarta.validation.constraints.DecimalMin;

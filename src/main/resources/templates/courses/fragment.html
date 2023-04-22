@@ -1,0 +1,42 @@
+
+<div class="container" th:fragment="form(courseRequestDTO, action)">
+  <div class="row">
+
+    <form th:object="${courseRequestDTO}" th:action="${action}" method="POST" class="w-100">
+
+      <div class="mb-3 ">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" th:errorclass="is-invalid" th:name="name" th:id="name" th:value="${course.getName()}">
+        <div class="invalid-feedback" th:errors="*{name}"></div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descrição</label>
+        <input type="text" class="form-control" th:errorclass="is-invalid" th:name="description" th:id="description" th:value="${course.getDescription()}">
+        <div class="invalid-feedback" th:errors="*{description}"></div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select th:name="type" id="type" class="form-select w-100 input-lg">
+
+          <option th:each="type : ${courseType}"
+                  th:value="${type}" th:text="${type}" th:selected="${type} == ${course.getType()}"></option>
+
+        </select>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Salvar</button>
+      <a href="javascript:history.back()">Voltar</a>
+
+    </form>
+  </div>
+</div>
+
+<div class="container" th:fragment="feedback-message">
+  <div class="col-12">
+    <span th:styleappend="${(param.error == null || param.message == null) ? 'display: none;' : ''}"
+          th:classappend="${(param.error != null && param.error) ? 'error-message' : 'success-message'}"
+          th:text="${param.message != null ? param.message : ''}"></span>
+  </div>
+</div>

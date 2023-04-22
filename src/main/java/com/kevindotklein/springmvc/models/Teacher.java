@@ -1,6 +1,6 @@
 package com.kevindotklein.springmvc.models;
 
-import com.kevindotklein.springmvc.dto.TeacherRequestDTO;
+import com.kevindotklein.springmvc.dto.teacher.TeacherRequestDTO;
 import com.kevindotklein.springmvc.models.enums.TeacherStatus;
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,12 +1,11 @@
 package com.kevindotklein.springmvc.controllers;
 
-import com.kevindotklein.springmvc.dto.TeacherRequestDTO;
+import com.kevindotklein.springmvc.dto.teacher.TeacherRequestDTO;
 import com.kevindotklein.springmvc.models.Teacher;
 import com.kevindotklein.springmvc.models.enums.TeacherStatus;
 import com.kevindotklein.springmvc.services.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,12 +39,14 @@ public class TeacherController {
 
     @PostMapping
     public ModelAndView postNewTeacher(@Valid TeacherRequestDTO data, BindingResult result){
+        Teacher teacher = new Teacher(data);
         if(result.hasErrors()){
             ModelAndView mv = new ModelAndView("/teachers/new");
             mv.addObject("teacherStatus", TeacherStatus.values());
+            mv.addObject("teacher", teacher);
             return mv;
         }
-        Teacher teacher = new Teacher(data);
+
         this.teacherService.save(teacher);
         return new ModelAndView("redirect:/teachers/"+teacher.getId());
     }
