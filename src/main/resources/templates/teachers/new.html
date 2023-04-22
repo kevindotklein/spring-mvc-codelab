@@ -7,44 +7,7 @@
 
 <header th:replace="~{fragment :: header('Novo Professor', '/teachers')}"></header>
 
-<div class="container">
-
-
-  <div class="container">
-    <div class="row">
-
-      <form th:object="${teacherRequestDTO}" th:action="@{/teachers}" method="POST" class="w-100">
-
-        <div class="mb-3 ">
-          <label class="form-label">Nome</label>
-          <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{name}">
-          <div class="invalid-feedback" th:errors="*{name}"></div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Salário</label>
-          <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{salary}">
-          <div class="invalid-feedback" th:errors="*{salary}"></div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Status</label>
-          <select th:field="*{status}" name="status" class="form-select w-100 input-lg">
-
-            <option th:each="status : ${teacherStatus}"
-            th:value="${status}" th:text="${status}"></option>
-
-          </select>
-        </div>
-
-        <button class="btn btn-primary" type="submit">Salvar</button>
-        <a href="javascript:history.back()">Voltar</a>
-
-      </form>
-    </div>
-  </div>
-
-</div>
+<div th:replace="~{teachers/fragment :: form(teacherRequestDTO, '/teachers')}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>

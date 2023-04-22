@@ -4,6 +4,7 @@ public enum TeacherStatus {
     ATIVO,
     INATIVO,
     APOSENTADO,
-    AFASTADO
+    AFASTADO,
+    DEMITIDO
 
 }

@@ -30,8 +30,10 @@ public class TeacherController {
 
     @GetMapping("/new")
     public ModelAndView getNewTeacher(TeacherRequestDTO data){
+        Teacher teacher = new Teacher(data);
         ModelAndView mv = new ModelAndView("teachers/new");
         mv.addObject("teacherStatus", TeacherStatus.values());
+        mv.addObject("teacher", teacher);
         return mv;
     }
 

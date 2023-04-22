@@ -1,0 +1,34 @@
+
+<div class="container" th:fragment="form(teacherRequestDTO, action)">
+    <div class="row">
+
+      <form th:object="${teacherRequestDTO}" th:action="${action}" method="POST" class="w-100">
+
+        <div class="mb-3 ">
+          <label class="form-label">Nome</label>
+          <input type="text" class="form-control" th:errorclass="is-invalid" th:name="name" th:id="name" th:value="${teacher.getName()}">
+          <div class="invalid-feedback" th:errors="*{name}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Salário</label>
+          <input type="text" class="form-control" th:errorclass="is-invalid" th:name="salary" th:id="salary" th:value="${teacher.getSalary()}">
+          <div class="invalid-feedback" th:errors="*{salary}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          <select th:name="status" id="status" class="form-select w-100 input-lg">
+
+            <option th:each="status : ${teacherStatus}"
+                    th:value="${status}" th:text="${status}" th:selected="${status} == ${teacher.getStatus()}"></option>
+
+          </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a href="javascript:history.back()">Voltar</a>
+
+      </form>
+    </div>
+</div>
