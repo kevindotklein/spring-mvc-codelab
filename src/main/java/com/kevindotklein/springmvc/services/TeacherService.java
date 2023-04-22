@@ -25,4 +25,8 @@ public class TeacherService {
     public Teacher findById(Long id){
         return this.teacherRepositoy.findById(id).orElseThrow(() -> new TeacherDoesNotExistException(id));
     }
+
+    public void deleteById(Long id){
+        this.teacherRepositoy.deleteById(id);
+    }
 }

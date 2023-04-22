@@ -31,7 +31,7 @@
             <td class="col-2" th:text="${teacher.getStatus().toString()}">STATUS</td>
             <td class="col-1"><a th:href="@{/teachers/{teacherId}(teacherId = ${teacher.getId()})}">Detalhes</a></td>
             <td class="col-1"><a th:href="@{/teachers/{teacherId}/edit(teacherId = ${teacher.getId()})}">Editar</a></td>
-            <td class="col-1"><a href="#">Deletar</a></td>
+            <td class="col-1"><a th:href="@{/teachers/{teacherId}/delete(teacherId = ${teacher.getId()})}">Deletar</a></td>
           </tr>
         </tbody>
       </table>

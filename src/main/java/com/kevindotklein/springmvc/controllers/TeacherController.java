@@ -6,6 +6,7 @@ import com.kevindotklein.springmvc.models.enums.TeacherStatus;
 import com.kevindotklein.springmvc.services.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -81,4 +82,13 @@ public class TeacherController {
         return mv;
     }
 
+    @GetMapping("/{id}/delete")
+    public String deleteTeacher(@PathVariable Long id){
+        try {
+            this.teacherService.deleteById(id);
+            return "redirect:/teachers";
+        }catch (EmptyResultDataAccessException e){
+            return "redirect:/teachers";
+        }
+    }
 }
