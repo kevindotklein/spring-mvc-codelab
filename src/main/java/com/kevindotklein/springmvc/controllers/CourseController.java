@@ -88,6 +88,19 @@ public class CourseController {
         return mv;
     }
 
+    @GetMapping("/{id}/delete")
+    public ModelAndView deleteCourse(@PathVariable Long id){
+        ModelAndView mv;
+        if(this.courseService.existsById(id)){
+            this.courseService.deleteById(id);
+            mv = this.courseSuccessMessage("redirect:/courses", "Curso #"+id+" deletado com sucesso");
+        }else{
+            mv = this.courseErrorMessage("redirect:/courses", "Curso #"+id+" não existe");
+        }
+
+        return mv;
+    }
+
     public ModelAndView courseErrorMessage(String route, String message){
         ModelAndView mv = new ModelAndView(route);
         mv.addObject("message", message);

@@ -33,7 +33,7 @@
           <td class="col-2" th:text="${course.getType().toString()}">TIPO</td>
           <td class="col-1"><a th:href="@{/courses/{courseId}(courseId = ${course.getId()})}">Detalhes</a></td>
           <td class="col-1"><a th:href="@{/courses/{courseId}/edit(courseId = ${course.getId()})}">Editar</a></td>
-          <td class="col-1"><a href="#">Deletar</a></td>
+          <td class="col-1"><a th:href="@{/courses/{courseId}/delete(courseId = ${course.getId()})}">Deletar</a></td>
         </tr>
         </tbody>
       </table>

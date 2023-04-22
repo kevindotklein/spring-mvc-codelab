@@ -25,4 +25,12 @@ public class CourseService {
     public Course findById(Long id){
         return this.courseRepository.findById(id).orElseThrow(() -> new CourseDoesNotExistException(id));
     }
+
+    public boolean existsById(Long id){
+        return this.courseRepository.existsById(id);
+    }
+
+    public void deleteById(Long id){
+        this.courseRepository.deleteById(id);
+    }
 }
