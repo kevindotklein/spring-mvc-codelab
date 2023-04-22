@@ -31,7 +31,7 @@
           <td class="col-4" th:text="${course.getName()}">Nome do Curso</td>
           <td class="col-2" th:text="${course.getDescription()}">Descrição</td>
           <td class="col-2" th:text="${course.getType().toString()}">TIPO</td>
-          <td class="col-1"><a href="#">Detalhes</a></td>
+          <td class="col-1"><a th:href="@{/courses/{courseId}(courseId = ${course.getId()})}">Detalhes</a></td>
           <td class="col-1"><a href="#">Editar</a></td>
           <td class="col-1"><a href="#">Deletar</a></td>
         </tr>

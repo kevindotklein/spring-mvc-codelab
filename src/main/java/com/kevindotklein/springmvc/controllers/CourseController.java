@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +51,14 @@ public class CourseController {
         }
 
         this.courseService.save(course);
-        return new ModelAndView("redirect:/courses");
+        return new ModelAndView("redirect:/courses/"+course.getId());
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView getCourseDetails(@PathVariable Long id){
+        Course course = this.courseService.findById(id);
+        ModelAndView mv = new ModelAndView("courses/details");
+        mv.addObject("course", course);
+        return mv;
     }
 }
